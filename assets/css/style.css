@@ -2,8 +2,12 @@ html {
   overflow: hidden; }
 
 body {
-  background-color: #17c4b9;
+  height: 100vh;
+  background: linear-gradient(45deg, #12968e 10%, #17c4b9 20%);
   color: #fff; }
+  @media (max-width: 400px) {
+    body {
+      font-size: 12px; } }
 
 header, footer, main {
   text-align: center; }
@@ -17,6 +21,9 @@ header {
   height: 10vh;
   margin-top: 70px;
   margin-bottom: 50px; }
+  @media (max-width: 400px) {
+    header {
+      height: 5vh; } }
 
 .this {
   font-weight: 400;
@@ -31,6 +38,12 @@ main {
   height: 75vh;
   margin: auto;
   width: 45vw; }
+  @media (max-width: 1024px) {
+    main {
+      width: 80vw; } }
+  @media (max-width: 768px) {
+    main {
+      width: 90vw; } }
 
 footer {
   height: 5vh;
@@ -57,14 +70,16 @@ footer {
 .options {
   display: flex;
   flex-wrap: wrap;
-  margin: auto;
   justify-content: space-between;
   align-content: space-between; }
+  @media (max-width: 768px) {
+    .options {
+      justify-content: space-around;
+      align-content: space-around; } }
 
 button {
   color: #fffff2;
   padding: 1em 0;
-  font-size: 2em;
   font: inherit;
   color: inherit;
   background-color: transparent;
@@ -94,6 +109,10 @@ button {
     transform: translate(0px, 2px);
     background-color: #ec4e3b;
     border: none; }
+  @media (max-width: 768px) {
+    button {
+      width: 100%;
+      font-size: 1em; } }
 
 .mask {
   background-color: rgba(0, 0, 0, 0.7);
@@ -116,6 +135,7 @@ h1 {
   font-weight: 700; }
 
 .card {
+  overflow: auto;
   border-radius: 3px;
   padding-top: 30px;
   padding-left: 40px;
@@ -124,7 +144,7 @@ h1 {
   z-index: 20;
   background-color: #fffff2;
   min-height: 20vh;
-  width: 35vw;
+  width: 55vw;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -153,6 +173,17 @@ h1 {
     .card .close:active {
       opacity: 0.8;
       transform: translatey(2px); }
+  @media (max-width: 1024px) {
+    .card {
+      width: 80vw; } }
+  @media (max-width: 768px) {
+    .card {
+      width: 70vw; } }
+  @media (max-width: 768px) {
+    .card {
+      top: 2.5%;
+      left: 2.5%;
+      transform: none; } }
   .card .card__options {
     margin-top: 2em;
     margin-bottom: 2em;

@@ -5,7 +5,11 @@ $color4: #2C363F
 $color5: #feffea
 
 $width: 45vw
-$cardwidth: 35vw
+$narrowwidth: 90vw
+$mediumwidth: 80vw
+$cardwidth: 55vw
+$narrowcardwidth: 70vw
+$mediumcardwidth: 80vw
 
 $bg-dark: #222
 $fg-light: #fff
@@ -25,8 +29,14 @@ html
 
 body
   // background-color: $color1
-  background-color: linear-gradient(45deg, $color1 20%, $color2 20%)
+  height: 100vh
+  background: linear-gradient(45deg, darken($color1, 10%) 10%, $color1 20%)
   color: $fg-light
+  @media (max-width: 400px)
+    font-size: 12px
+
+    
+
 
 header, footer, main
   text-align: center
@@ -40,6 +50,8 @@ header
   height: 10vh
   margin-top: 70px
   margin-bottom: 50px
+  @media (max-width: 400px)
+    height: 5vh
 
 .this
   font-weight: 400
@@ -54,6 +66,10 @@ main
   height: 75vh
   margin: auto
   width: $width
+  @media (max-width: 1024px)
+    width: $mediumwidth
+  @media (max-width: 768px)
+    width: $narrowwidth
 
 footer
   height: 5vh
@@ -81,15 +97,18 @@ footer
 .options
   display: flex
   flex-wrap: wrap
-  margin: auto
+  // margin: auto
   justify-content: space-between
   align-content: space-between
+  @media (max-width: 768px)
+    justify-content: space-around
+    align-content: space-around
 
 
 button 
   color: $color3
   padding: 1em 0 
-  font-size: 2em
+  // font-size: 2em
   font: inherit
   color: inherit
   background-color: transparent
@@ -119,6 +138,9 @@ button
     transform: translate(0px, 2px) 
     background-color: darken($bg-button, 5%)
     border: none 
+  @media (max-width: 768px)
+    width: 100%
+    font-size: 1em
 
 .mask
   background-color: rgba(0, 0, 0, 0.7)
@@ -144,6 +166,7 @@ h1
 
 
 .card
+  overflow: auto
   border-radius: 3px
   padding-top: 30px
   padding-left: 40px
@@ -179,9 +202,17 @@ h1
     &:active
       opacity: 0.8
       transform: translatey(2px)
-    
     top: 0.5em
     right: 0.5em
+  @media (max-width: 1024px)
+    width: $mediumcardwidth
+  @media (max-width: 768px)
+    width: $narrowcardwidth
+  @media (max-width: 768px)
+    top: 2.5%
+    left: 2.5%
+    transform: none
+    
 
   .card__options
     margin-top: 2em
