@@ -8,7 +8,6 @@ const buttons = document.querySelectorAll(".options__button");
 const closeButtons = document.querySelectorAll(".close");
 const nextButtons = document.querySelectorAll("button.next");
 const explanationButtons = document.querySelectorAll("button.explanation");
-// Get the question data from json file
 
 // Event listeners
 
@@ -48,3 +47,10 @@ explanationButtons.forEach(el => {
     explanationCard.classList.replace("hidden", "visible");
   });
 });
+
+// Fetch examples json
+let jsonPromise = fetch("/assets/examples.json").then(function(response) {
+  return response.json();
+});
+
+jsonPromise.then(json => console.log(json[1]));
