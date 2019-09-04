@@ -6,44 +6,35 @@ const incorrectCard = document.querySelector(".incorrect.card");
 const explanationCard = document.querySelector(".explanation.card");
 const explanationContent = document.querySelector(".explanation__content");
 const mask = document.querySelector(".mask");
-const buttons = document.querySelectorAll("button.options__button");
+// const buttons = document.querySelectorAll("button.options__button");
+const optionsElement = document.querySelector(".options");
 const closeButtons = document.querySelectorAll(".close");
 const nextButtons = document.querySelectorAll("button.next");
 const explanationButtons = document.querySelectorAll("button.explanation");
 
-// import questionsObj from "/assets/examples.json";
 import { questions } from "/assets/js/questions.js";
-console.log(questions);
 import * as Prism from "./prism.js";
-// import { highlight, highlightAll } from "./prism.js";
-// const prism = require("./prism.js");
 
 showNewQuestion(questions);
 
 // Event listeners
 
 function addAnswerListener(el) {
-  if (el.classList.contains("correct")) {
-    el.addEventListener("click", ev => {
-      correctCard.classList.replace("hidden", "visible");
-      mask.classList.remove("hidden");
-    });
-  } else {
-    el.addEventListener("click", ev => {
-      incorrectCard.classList.replace("hidden", "visible");
-      mask.classList.remove("hidden");
-    });
-  }
+  let card = el.classList.contains("correct") ? correctCard : incorrectCard;
+  el.addEventListener("click", () => {
+    card.classList.replace("hidden", "visible");
+    mask.classList.remove("hidden");
+  });
 }
 
 // Wire up all the event listeners
-aboutLink.addEventListener("click", ev => {
+aboutLink.addEventListener("click", () => {
   aboutCard.classList.replace("hidden", "visible");
   mask.classList.remove("hidden");
 });
 
 closeButtons.forEach(el => {
-  el.addEventListener("click", ev => {
+  el.addEventListener("click", () => {
     document
       .querySelector(".card.visible")
       .classList.replace("visible", "hidden");
@@ -52,7 +43,7 @@ closeButtons.forEach(el => {
 });
 
 explanationButtons.forEach(el => {
-  el.addEventListener("click", ev => {
+  el.addEventListener("click", () => {
     document
       .querySelector(".card.visible")
       .classList.replace("visible", "hidden");
@@ -61,7 +52,7 @@ explanationButtons.forEach(el => {
 });
 
 nextButtons.forEach(el => {
-  el.addEventListener("click", ev => {
+  el.addEventListener("click", () => {
     document
       .querySelector(".card.visible")
       .classList.replace("visible", "hidden");
@@ -81,16 +72,27 @@ function getRandomQuestion(list) {
 }
 
 function populateQuestion(q) {
+  let buttons = document.querySelectorAll("button.options__button");
   // Set the code snippet
   codesnippetContent.innerHTML = q.codesnippet;
 
-  // Copy the options and set the buttons + listeners
-  let options = [...q.options];
-  buttons.forEach(function(el) {
-    let option = options.pop();
-    el.innerHTML = option;
-    el.classList.remove("correct", "incorrect"); // Reset correctness values
-    el.classList.add(option == q.correct ? "correct" : "incorrect");
+  // Remove the buttons and create new ones.
+  let newOptions = [...q.options];
+
+  let newButtons = newOptions.map(option => {
+    let el = document.createElement("button");
+    el.textContent = option;
+    el.classList.add(
+      "options__button",
+      option == q.correct ? "correct" : "incorrect"
+    );
+    return el;
+  });
+
+  buttons.forEach(el => optionsElement.removeChild(el));
+
+  newButtons.forEach(el => {
+    optionsElement.appendChild(el);
     addAnswerListener(el);
   });
 

@@ -4,12 +4,12 @@ $color3: #fffff2
 $color4: #2C363F
 $color5: #feffea
 
-$width: 45vw
+$width: 38vw
 $narrowwidth: 90vw
 $mediumwidth: 80vw
-$cardwidth: 55vw
-$narrowcardwidth: 70vw
-$mediumcardwidth: 80vw
+$cardwidth: 35vw
+$narrowcardwidth: 95vw
+$mediumcardwidth: 95vw
 
 $bg-dark: #222
 $fg-light: #fff
@@ -24,34 +24,47 @@ $font: 'Roboto', sans-serif
 $codefont: 'Roboto Mono', monospace
 $titlefont: 'Oswald', sans-serif
 
+*
+  box-sizing: border-box
+
 html
   overflow: hidden
+  font-family: $font
 
 body
   // background-color: $color1
-  height: 100vh
-  background: linear-gradient(45deg, darken($color1, 10%) 10%, $color1 20%)
+  min-height: 100vh
+  height: 100%
+  background: linear-gradient(45deg, darken($color1, 35%), darken($color1, 15%), $color1, $color2)
+  background-size: 800% 100%
+  background-position: 50% 0%
   color: $fg-light
   @media (max-width: 400px)
     font-size: 12px
 
-    
-
-
 header, footer, main
   text-align: center
 
+.container
+  min-height: 100vh
 header
   font-family: $titlefont
-  text-shadow: 2px 4px 1px darken($color1, 10%)
+  text-shadow: 2px 4px 1px darken($color1, 15%)
   font-size: 4em
   font-weight: 700
   color: $fg-string
-  height: 10vh
-  margin-top: 70px
-  margin-bottom: 50px
+  min-height: 25vh
+  display: flex
+  align-items: center
+  justify-content: center
+  @media (max-width: 768px)
+    min-height: 20vh
+    padding-top: 5vh 
+    padding-bottom: 5vh 
   @media (max-width: 400px)
-    height: 5vh
+    min-height: 10vh
+    padding-top: 8vh 
+    padding-bottom: 2vh 
 
 .this
   font-weight: 400
@@ -61,23 +74,33 @@ header
   color: $kw-color
   text-shadow: 0 1px rgba(0, 0, 0, 0.3);
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  margin-bottom: -0.3em
+  margin-left: 0.3em
+  margin-right: 0.3em
   
 main
-  height: 75vh
+  min-height: 65vh
   margin: auto
   width: $width
   @media (max-width: 1024px)
     width: $mediumwidth
   @media (max-width: 768px)
+    min-height: 75vh
     width: $narrowwidth
+  @media (max-width: 400px)
+    padding-top: 10%
+    min-height: 85vh
 
 footer
-  height: 5vh
-  position: absolute
-  bottom: 0
+  display: flex
+  align-items: flex-end
+  justify-content: center
+  min-height: 10vh 
+  // padding-top: 0.8em
+  padding-bottom: 2em
   text-align: center
   width: 100vw
-  font-size: 0.8em
+  font-size: 0.85em
   a
     display: inline-block
     text-decoration: none
@@ -97,7 +120,6 @@ footer
 .options
   display: flex
   flex-wrap: wrap
-  // margin: auto
   justify-content: space-between
   align-content: space-between
   @media (max-width: 768px)
@@ -106,19 +128,20 @@ footer
 
 
 button 
+  position: relative
   color: $color3
-  padding: 1em 0 
-  // font-size: 2em
+  height: 3em
+  display: flex
+  align-items: center
+  justify-content: center
   font: inherit
   color: inherit
-  background-color: transparent
   cursor: pointer
-  border: none 
   background-color: $bg-button
   width: 48%
   margin-top: 0.5em
   margin-bottom: 0.5em
-  font-size: 1.5em
+  font-size: 1.2em
   font-family: $codefont
   font-weight: 700
   border-radius: 0.3em
@@ -128,19 +151,31 @@ button
   box-shadow: 14px 17px 44px -18px rgba(0,0,0,0.3)
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.2s ease
   &:focus
     border: none
     outline: none
   &:hover
-    background-color: lighten($bg-button, 3%)
+    background-color: lighten($bg-button, 5%)
     border: none 
   &:active
     transform: translate(0px, 2px) 
     background-color: darken($bg-button, 5%)
     border: none 
   @media (max-width: 768px)
-    width: 100%
     font-size: 1em
+
+.card__button
+  justify-content: space-between
+
+.card__button__helper-icon
+  font-size: 2em
+  width: 1em
+
+.card__button__text
+  text-align: center
+  width: 100%
+
 
 .mask
   background-color: rgba(0, 0, 0, 0.7)
@@ -153,10 +188,10 @@ button
   right: 0
   z-index: 10
 
-.about
 
 .hidden
   display: none
+
 
 h1
   font-family: $titlefont
@@ -169,50 +204,57 @@ h1
   overflow: auto
   border-radius: 3px
   padding-top: 30px
-  padding-left: 40px
-  padding-right: 40px
+  padding-left: 60px
+  padding-right: 60px
   padding-bottom: 30px
   z-index: 20
   background-color: $color3
   min-height: 20vh
   width: $cardwidth
   position: fixed
-  top: 50%
-  left: 50%
-  transform: translate(-50%, -50%)
+  transition: all 0.5s ease-out
+  line-height: 1.3
+
   color: $color4
   -webkit-box-shadow: 14px 17px 44px -18px rgba(0,0,0,0.9)
   -moz-box-shadow: 14px 17px 44px -18px rgba(0,0,0,0.9)
   box-shadow: 14px 17px 44px -18px rgba(0,0,0,0.9)
+  button
+    font-size: 1em
   a
     text-decoration: none
     color: $color2
   p
     text-align: justify
-  .close
+  a.close
     position: absolute
     font-size: 3em
     color: $color4
     opacity: 0.4
     font-size: 2em
     font-weight: 700
+    top: 0.5em
+    right: 0.5em
     &:hover
       cursor: pointer
       opacity: 0.6
     &:active
       opacity: 0.8
       transform: translatey(2px)
-    top: 0.5em
-    right: 0.5em
+
   @media (max-width: 1024px)
     width: $mediumcardwidth
-  @media (max-width: 768px)
     width: $narrowcardwidth
   @media (max-width: 768px)
-    top: 2.5%
-    left: 2.5%
-    transform: none
-    
+    max-height: 95%
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+  @media (min-width: 768px)
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+
 
   .card__options
     margin-top: 2em
@@ -229,3 +271,8 @@ h1
 dt
   margin-top: 5px
   margin-bottom: 5px
+
+pre[class*="language-"]
+  padding: 1em 3em
+  @media (max-width: 768px)
+    padding: 1em 2em 
